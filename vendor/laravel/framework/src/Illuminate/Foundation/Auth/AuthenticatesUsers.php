@@ -114,7 +114,9 @@ trait AuthenticatesUsers
      */
     protected function authenticated(Request $request, $user)
     {
-        //
+        if ($user->isAdmin()) {
+            return redirect()->intended('/admin');
+        }
     }
 
     /**
