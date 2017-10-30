@@ -6,8 +6,8 @@ use Faker\Generator as Faker;
 
 $factory->define(Image::class, function (Faker $faker) {
     return [
-        'face' => 'tile';
-        'active' => true;
-        'path' => $faker->image('storage/app/public/uploads',400,300, null, false) ;
+        'face' => $faker->sentence(3),
+        'active' => true,
+        'path' => $faker->image('storage/app/public/uploads',400,300, null, false),
     ];
 });

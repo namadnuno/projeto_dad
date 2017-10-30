@@ -11,7 +11,7 @@ $factory->define(Game::class, function (Faker $faker) {
        	'total_players' => 1,
        	'created_by' => function () {
        		return factory(User::class)->create()->id;
-       	};
+       	},
         'winner' => null
     ];
 });
