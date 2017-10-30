@@ -8,73 +8,88 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>{{ config('app.name', 'Laravel') }}</title>
+    <title>@yield('title')</title>
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 </head>
 <body>
-    <div id="app">
-        <nav class="navbar navbar-default navbar-static-top">
-            <div class="container">
-                <div class="navbar-header">
+<div id="app">
+    <nav class="navbar is-transparent">
+        <div class="navbar-brand">
+            <a class="navbar-item" href="https://bulma.io">
+                <img src="https://bulma.io/images/bulma-logo.png" alt="Bulma: a modern CSS framework based on Flexbox" width="112" height="28">
+            </a>
 
-                    <!-- Collapsed Hamburger -->
-                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#app-navbar-collapse" aria-expanded="false">
-                        <span class="sr-only">Toggle Navigation</span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                    </button>
+            <div class="navbar-burger burger" data-target="navMenuTransparentExample">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
 
-                    <!-- Branding Image -->
-                    <a class="navbar-brand" href="{{ url('/') }}">
-                        {{ config('app.name', 'Laravel') }}
-                    </a>
-                </div>
+        <div id="navMenuTransparentExample" class="navbar-menu">
+            <div class="navbar-end">
+                <div class="navbar-item">
+                    <div class="field is-grouped">
+                        @if (auth()->guest())
+                        <p class="control">
+                            <a class="button"
+                               href="{{ url('/login') }}">
+                                <span>
+                                    Login
+                                </span>
+                            </a>
 
-                <div class="collapse navbar-collapse" id="app-navbar-collapse">
-                    <!-- Left Side Of Navbar -->
-                    <ul class="nav navbar-nav">
-                        &nbsp;
-                    </ul>
-
-                    <!-- Right Side Of Navbar -->
-                    <ul class="nav navbar-nav navbar-right">
-                        <!-- Authentication Links -->
-                        @guest
-                            <li><a href="{{ route('login') }}">Login</a></li>
-                            <li><a href="{{ route('register') }}">Register</a></li>
+                        </p>
+                        <p class="control">
+                            <a class="button is-primary" href="{{ url('/register') }}">
+                                <span>Register</span>
+                            </a>
+                        </p>
                         @else
-                            <li class="dropdown">
-                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true">
-                                    {{ Auth::user()->name }} <span class="caret"></span>
+                            <div class="navbar-item has-dropdown is-hoverable">
+                                <a class="navbar-link  is-active" href="/documentation/overview/start/">
+                                    Olá, {{ auth()->user()->name }}
                                 </a>
-
-                                <ul class="dropdown-menu">
-                                    <li>
-                                        <a href="{{ route('logout') }}"
-                                            onclick="event.preventDefault();
-                                                     document.getElementById('logout-form').submit();">
-                                            Logout
-                                        </a>
-
-                                        <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-                                            {{ csrf_field() }}
-                                        </form>
-                                    </li>
-                                </ul>
-                            </li>
-                        @endguest
-                    </ul>
+                                <div class="navbar-dropdown is-boxed">
+                                    <a class="navbar-item " href="/documentation/overview/start/">
+                                        Overview
+                                    </a>
+                                    <a class="navbar-item " href="https://bulma.io/documentation/modifiers/syntax/">
+                                        Modifiers
+                                    </a>
+                                    <a class="navbar-item logoutButton" href="#">
+                                        Sair
+                                    </a>
+                                    <form class="hidden logoutForm" style="display: none;" action="{{ url('/logout') }}" method="POST"> q
+                                        {{ csrf_field() }}
+                                        <button class="button is-text">Logout</button>
+                                    </form>
+                                </div>
+                            </div>
+                        @endif
+                    </div>
                 </div>
             </div>
-        </nav>
-
+        </div>
+    </nav>
+    <section class="hero is-primary">
+        <div class="hero-body">
+            <p class="title">
+                @yield('title')
+            </p>
+            <p class="subtitle">
+                @yield('subtitle')
+            </p>
+        </div>
+    </section>
+    <div class="mt-5">
         @yield('content')
     </div>
+</div>
 
-    <!-- Scripts -->
-    <script src="{{ asset('js/app.js') }}"></script>
+<!-- Scripts -->
+<script src="{{ asset('js/app.js') }}"></script>
 </body>
 </html>
